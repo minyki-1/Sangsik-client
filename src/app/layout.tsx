@@ -1,8 +1,10 @@
 import './globals.scss'
 import type { Metadata } from 'next'
-// import { Inter } from 'next/font/google'
-
-// const inter = Inter({ subsets: ['latin'] })
+// import { Noto_Sans_KR } from "next/font/google";
+// const notoSansKr = Noto_Sans_KR({
+//   display: "swap",
+//   subsets: ['latin'],
+// });
 
 export const metadata: Metadata = {
   title: 'Create Next App',

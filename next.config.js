@@ -7,6 +7,7 @@ module.exports = (phase, { defaultConfig }) => {
   }
   return {
     ...defaultConfig,
+    swcMinify: true,
     reactStrictMode: true,
   };
 };

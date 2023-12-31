@@ -1,24 +1,24 @@
 :root {
   --bg-1: #{$white};
-  --font-1: #{$black};
+  --color-1: #{$black};
 }
 
 html[data-theme="dark"] {
   --bg-1: #{$black};
-  --font-1: #{$white};
+  --color-1: #{$white};
 }
 html[data-theme="light"] {
   --bg-1: #{$white};
-  --font-1: #{$black};
+  --color-1: #{$black};
 }
 
 html,
 body {
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--bg-1);
   margin: 0px;
 }
 
 * {
-  color: var(--font-1);
+  color: var(--color-1);
 }

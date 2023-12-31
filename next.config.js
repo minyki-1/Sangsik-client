@@ -8,26 +8,5 @@ module.exports = (phase, { defaultConfig }) => {
   return {
     ...defaultConfig,
     reactStrictMode: true,
-    module: {
-      rules: [
-        {
-          test: /\.s[ac]ss$/i,
-          use: [
-            "style-loader",
-            "css-loader",
-            "sass-loader",
-          ],
-        },
-      ],
-    },
-    webpack(config) {
-      config.module.rules.push({
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack'],
-      });
-
-      return config;
-    },
   };
 };

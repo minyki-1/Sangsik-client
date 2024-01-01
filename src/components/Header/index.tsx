@@ -1,13 +1,12 @@
-import style from "./Header.module.scss";
+import style from "./index.module.scss";
 import LogoLightIcon from 'assets/icons/logo-light.svg'
 import LogoDarkIcon from 'assets/icons/logo-dark.svg'
 import ArrowSmallUpIcon from 'assets/icons/arrow-small-up.svg'
-import Link from "next/link";
 import NavList from "@/components/NavList"
 
 export default function Header() {
   return (
-    <div className={style.container}>
+    <header className={style.container}>
       <LogoLightIcon
         className={style.lightLogo}
         height={52}
@@ -25,6 +24,6 @@ export default function Header() {
         </button>
         <h1>상식 테스트</h1>
       </div>
-    </div>
+    </header>
   )
 }

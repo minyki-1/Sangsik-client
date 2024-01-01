@@ -1,5 +1,5 @@
 'use client';
-import style from "./NavList.module.scss";
+import style from "./index.module.scss";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 

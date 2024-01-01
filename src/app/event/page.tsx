@@ -1,4 +1,4 @@
-export default function My() {
+export default function Event() {
   return (
     <main>
       123456789

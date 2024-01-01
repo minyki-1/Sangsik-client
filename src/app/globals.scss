@@ -23,21 +23,9 @@ body {
   min-height: 100vh;
   background-color: var(--bg-1);
   margin: 0px;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 * {
   color: var(--color-1);
-}
-
-p,
-button,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li,
-input {
-  font-family: "Noto Sans KR", sans-serif;
 }

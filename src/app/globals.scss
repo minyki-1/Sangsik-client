@@ -10,10 +10,12 @@
 html[data-theme="dark"] {
   --bg-1: #{$black};
   --color-1: #{$white};
+  // --symbol-1: initial;
 }
 html[data-theme="light"] {
   --bg-1: #{$white};
   --color-1: #{$black};
+  --symbol-1: #{$symbol};
 }
 
 html,

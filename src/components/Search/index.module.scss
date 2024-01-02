@@ -16,8 +16,9 @@
 .orderBox {
   font-size: 15px;
   color: var(--color-1);
+  background-color: initial;
   padding: 5px 8px;
-  border: 1.25px solid black;
+  border: 1.25px solid var(--color-1);
   border-radius: 4px;
   outline: none;
 }
@@ -35,7 +36,7 @@
     font-weight: bold;
     font-size: 16px;
     background-color: initial;
-    color: var(--color-1);
+    color: var(--black-1);
     flex: 1;
     padding: 12px 30px;
     padding-right: 0px;

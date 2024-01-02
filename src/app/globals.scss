@@ -1,21 +1,31 @@
 @import "./normalize.scss";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 
+$white: #f2f2f2;
+$black: #0b0d14;
+$symbol: #9dee86;
+$lightGray: #e7e7e7;
+$darkGray: #313131;
+
 :root {
+  --white-1: #{$white};
+  --black-1: #{$black};
   --bg-1: #{$white};
   --color-1: #{$black};
   --symbol-1: #{$symbol};
+  --gray-1: #{$lightGray};
 }
 
 html[data-theme="dark"] {
   --bg-1: #{$black};
   --color-1: #{$white};
-  // --symbol-1: initial;
+  --gray-1: #{$darkGray};
 }
 html[data-theme="light"] {
   --bg-1: #{$white};
   --color-1: #{$black};
   --symbol-1: #{$symbol};
+  --gray-1: #{$lightGray};
 }
 
 html,
@@ -23,7 +33,10 @@ body {
   min-height: 100vh;
   background-color: var(--bg-1);
   margin: 0px;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue,
+    Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, 나눔고딕, Nanum Gothic,
+    Noto Sans KR, Noto Sans CJK KR, arial, 돋움, Dotum, Tahoma, Geneva,
+    sans-serif;
 }
 
 * {

@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  padding: 0px 60px;
+  margin-top: 32px;
+}
+
+.infoWrap {
+  display: flex;
+  align-items: center;
+  img {
+    width: 82px;
+    height: 82px;
+    margin-right: 32px;
+    border-radius: 100px;
+    box-shadow: 2px 4px 12px 0px rgba(16, 16, 16, 0.25);
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-size: 28px;
+    font-weight: 400;
+    margin: 0px;
+    color: var(--color-1);
+    margin-bottom: 8px;
+  }
+  button {
+    margin-top: 8px;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--gray-2);
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.badgeList {
+  padding: 32px;
+  background-color: var(--gray-2);
+  color: var(--color-1);
+  border-radius: 8px;
+  width: 40vw;
+}

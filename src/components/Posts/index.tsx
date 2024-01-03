@@ -14,8 +14,8 @@ export default function Posts() {
               <Image
                 width={24}
                 height={24}
-                src={'https://yt3.ggpht.com/yti/AGOGRCoQygByYr5MvP4_coveyCKZUmjDWgF6XFuWfyDrqA=s88-c-k-c0x00ffffff-no-rj'}
-                alt="user profile "
+                src={process.env.TEST_USER_IMG || ''}
+                alt="user profile"
               />
               <p>Kawan</p>
             </div>
@@ -28,9 +28,7 @@ export default function Posts() {
               <p>2</p>
             </div>
           </div>
-          <div className={style.postTitle}>
-            대한민국의 유명한 산은?
-          </div>
+          <h1 className={style.postTitle}>대한민국의 유명한 산은?</h1>
         </div>
       </div>
     </main>

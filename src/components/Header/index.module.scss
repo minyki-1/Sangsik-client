@@ -2,6 +2,9 @@
   display: none;
   [data-theme="dark"] & {
     display: block;
+    fill: var(--color-1);
+    height: 52px;
+    width: auto;
   }
 }
 .lightLogo {

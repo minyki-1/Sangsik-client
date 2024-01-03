@@ -1,16 +1,13 @@
-module.exports = (phase, { defaultConfig }) => {
-  if ('sassOptions' in defaultConfig) {
-    defaultConfig['sassOptions'] = {
-      includePaths: ['./src'],
-      // prependData: `@import '~@styles/colors.scss';`,
-    }
-  }
-  return {
-    ...defaultConfig,
-    swcMinify: true,
-    reactStrictMode: true,
-    images: {
-      domains: ['yt3.ggpht.com'],
-    }
-  };
+const path = require('path')
+
+module.exports = {
+  swcMinify: true,
+  reactStrictMode: true,
+  images: {
+    domains: ['yt3.ggpht.com'],
+  },
+  // webpack(config, options) {
+  //   config.resolve.alias['components'] = path.join(__dirname, 'components')
+  //   return config
+  // }
 };

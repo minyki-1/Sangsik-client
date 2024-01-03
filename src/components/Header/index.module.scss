@@ -6,6 +6,9 @@
 }
 .lightLogo {
   display: block;
+  fill: var(--color-1);
+  height: 52px;
+  width: auto;
   [data-theme="dark"] & {
     display: none;
   }
@@ -56,10 +59,10 @@
     margin: 0px;
     margin-left: 12px;
   }
-}
 
-.moveToTestBtn:hover {
-  button {
-    animation: jump 0.4s ease-in-out 2;
+  &:hover {
+    button {
+      animation: jump 0.4s ease-in-out 2;
+    }
   }
 }

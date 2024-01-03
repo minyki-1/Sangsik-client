@@ -54,6 +54,7 @@
     margin-right: 8px;
     background-color: var(--color-1);
     cursor: pointer;
+    fill: var(--color-1);
   }
 }
 
@@ -79,4 +80,8 @@
   margin-top: 12px;
   padding: 2px;
   margin-bottom: 2px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }

@@ -1,7 +1,7 @@
 import style from "./index.module.scss";
 import Image from "next/image";
-import HeartIcon from "assets/icons/heart.svg";
-import BookmarkIcon from "assets/icons/bookmark.svg";
+import heartIcon from "@/assets/icons/heart.svg";
+import bookmarkIcon from "@/assets/icons/bookmark.svg";
 
 export default function Posts() {
   return (
@@ -20,11 +20,11 @@ export default function Posts() {
               <p>Kawan</p>
             </div>
             <div className={style.postData}>
-              <HeartIcon width={16} height={16} fill={'var(--color-1)'} />
+              <Image src={heartIcon} width={16} height={16} alt="heart icon" />
               <p>2</p>
             </div>
             <div className={style.postData}>
-              <BookmarkIcon width={16} height={16} fill={'var(--color-1)'} />
+              <Image src={bookmarkIcon} width={16} height={16} alt="bookmark icon" />
               <p>2</p>
             </div>
           </div>

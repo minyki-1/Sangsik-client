@@ -11,7 +11,7 @@ export default function NavList() {
         <h1>모두의 상식</h1>
         <line />
       </Link>
-      <Link href={'/my'} className={style.navBtn} data-selected={pathname === '/my'}>
+      <Link href={'/my/bookmark'} className={style.navBtn} data-selected={pathname.includes('/my')}>
         <h1>나만의 상식</h1>
         <line />
       </Link>

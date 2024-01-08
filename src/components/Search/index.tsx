@@ -1,5 +1,5 @@
 import style from './index.module.scss'
-import searchIcon from '@/assets/icons/search.svg'
+import SearchIcon from '@/assets/icons/search.svg'
 import Image from 'next/image'
 
 export default function Search() {
@@ -12,7 +12,7 @@ export default function Search() {
         </select>
         <div className={style.searchWrap}>
           <input type="text" placeholder='세계에서 가장 높은 산은?' />
-          <Image src={searchIcon} alt='search icon' width={24} height={24} />
+          <SearchIcon />
         </div>
       </div>
     </article>

@@ -43,9 +43,12 @@
     outline: none;
     border: none;
   }
-  img {
+  svg {
     cursor: pointer;
     padding: 14px;
     padding-right: 28px;
+    width: 24px;
+    height: 24px;
+    fill: var(--black-1);
   }
 }

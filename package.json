@@ -10,16 +10,20 @@
   },
   "dependencies": {
     "@next/font": "^14.0.4",
+    "@toast-ui/editor-plugin-color-syntax": "^3.1.0",
+    "@toast-ui/react-editor": "^3.2.3",
     "babel-plugin-inline-react-svg": "^2.0.2",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-draft-wysiwyg": "^1.15.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-draft-wysiwyg": "^1.13.8",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",

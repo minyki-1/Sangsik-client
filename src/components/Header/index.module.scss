@@ -3,14 +3,14 @@
   [data-theme="dark"] & {
     display: block;
     fill: var(--color-1);
-    height: 52px;
+    height: 48px;
     width: auto;
   }
 }
 .lightLogo {
   display: block;
   fill: var(--color-1);
-  height: 52px;
+  height: 48px;
   width: auto;
   [data-theme="dark"] & {
     display: none;

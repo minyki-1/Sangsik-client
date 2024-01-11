@@ -6,10 +6,40 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 
 export default function Page() {
   const editorRef = useRef<any>(null);
   const [text, setText] = useState('');
+
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (event: any) => {
+    setFile(event.target.files[0]);
+  };
+
+  const uploadImage = async (file: File) => {
+    if (!file) {
+      alert("파일이 선택되지 않았습니다. 다시 시도해주세요.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await axios.post('http://localhost:8080/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      return response.data.url as String;
+    } catch (error) {
+      // console.error('Error uploading image: ', error);
+      return;
+    }
+  };
+
 
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
@@ -17,20 +47,21 @@ export default function Page() {
   };
 
   useEffect(() => {
-    // editorRef.current
-    //   .getInstance()
-    //   .addHook('addImageBlobHook', async (blob: File, callback: any) => {
-    //     // blob 자체가 file 임,
-    //     const formData = new FormData();
-    //     // 아래와 같이 저장하면 formData {image:blob} 형태가 됨
-    //     formData.append('image', blob);
-    //     // 서버에 이미지 저장 및 저장된 이미지 url 응답 받기
-    //     const url = await axios.post('/api/...', formData);
-    //     // 에디터에 url과 파일 이름을 이용한 마크다운 이미지 문법 작성 콜백 함수
-    //     callback('...' + url, blob.name);
-    //     return false;
-    //   });
-  }, [])
+    if (!editorRef.current) return;
+    editorRef.current.getInstance().removeHook("addImageBlobHook");
+    editorRef.current
+      .getInstance()
+      .addHook('addImageBlobHook', async (blob: File, callback: any) => {
+        const result = await uploadImage(blob);
+        if (!result) {
+          alert('이미지 업로드에 실패했습니다.')
+          return false;
+        }
+        callback(result, blob.name);
+        return false;
+      });
+    return () => { };
+  }, [editorRef])
 
   return (
     <div>

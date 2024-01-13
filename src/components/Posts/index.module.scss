@@ -20,8 +20,13 @@
 .postImg {
   width: 100%;
   aspect-ratio: 16/9;
-  background-color: #c0c0c0;
-  border-radius: 4px 4px 0px 0px;
+  display: flex;
+  img {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 4px 4px 0px 0px;
+    background-color: #c0c0c0;
+  }
 }
 
 .postInfoWrap {
@@ -42,18 +47,17 @@
   flex: 1;
   p {
     margin: 0px;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--color-1);
     flex: 1;
   }
-  svg {
+  img {
     width: 24px;
     height: 24px;
     border-radius: 100px;
     margin-right: 8px;
     background-color: var(--color-1);
     cursor: pointer;
-    fill: var(--color-1);
   }
 }
 
@@ -70,14 +74,14 @@
     color: var(--color-1);
   }
   svg {
-    width: 16px;
-    height: 16px;
-    fill: var(--color-1);
+    width: 18px;
+    height: 18px;
   }
 }
 
 .postTitle {
-  font-size: 1rem;
+  display: flex;
+  font-size: 1.1rem;
   color: var(--color-1);
   font-weight: bold;
   margin: 0px;
@@ -85,6 +89,7 @@
   padding: 2px;
   margin-bottom: 2px;
   cursor: pointer;
+  text-decoration: none;
   &:hover {
     text-decoration: underline;
   }

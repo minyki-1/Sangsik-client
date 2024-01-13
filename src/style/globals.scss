@@ -1,0 +1,32 @@
+@import "./normalize.scss";
+@import "./color.scss";
+@import "./tui.scss";
+
+html[data-theme="dark"] {
+  --bg-1: #{$black};
+  --color-1: #{$white};
+  --gray-1: #{$darkGray};
+  --gray-2: #{$darkGray};
+}
+html[data-theme="light"] {
+  --bg-1: #{$white};
+  --color-1: #{$black};
+  --symbol-1: #{$symbol};
+  --gray-1: #{$lightGray-1};
+  --gray-2: #{$lightGray-2};
+}
+
+html,
+body {
+  min-height: 100vh;
+  background-color: var(--bg-1);
+  margin: 0px;
+}
+
+* {
+  color: var(--color-1);
+}
+
+svg {
+  fill: var(--color-1);
+}

@@ -1,8 +1,9 @@
 import Header from '@/components/Header'
-import './globals.scss'
+import '@/style/globals.scss'
 import type { Metadata } from 'next'
 import { Noto_Sans_KR } from "next/font/google";
-const notoSansKr = Noto_Sans_KR({
+
+export const notoSansKr = Noto_Sans_KR({
   weight: ['500'],
   subsets: ['latin'],
 })

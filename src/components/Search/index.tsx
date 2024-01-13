@@ -1,6 +1,5 @@
 import style from './index.module.scss'
 import SearchIcon from '@/assets/icons/search.svg'
-import Image from 'next/image'
 
 export default function Search() {
   return (

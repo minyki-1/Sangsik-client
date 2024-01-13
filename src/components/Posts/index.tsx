@@ -2,12 +2,15 @@ import style from "./index.module.scss";
 import Image from "next/image";
 import HeartIcon from "@/assets/icons/heart.svg";
 import BookmarkIcon from "@/assets/icons/bookmark.svg";
+import Link from "next/link"
 
 export default function Posts() {
   return (
     <main className={style.postList}>
       <div className={style.post}>
-        <Image src={''} className={style.postImg} alt="123456" />
+        <Link href={'/knowledge/1'} className={style.postImg}>
+          <Image src={''} alt="preview image" />
+        </Link>
         <div className={style.postInfoWrap}>
           <div className={style.postInfo}>
             <div className={style.postProfile}>
@@ -28,7 +31,7 @@ export default function Posts() {
               <p>2</p>
             </div>
           </div>
-          <h1 className={style.postTitle}>대한민국의 유명한 산은?</h1>
+          <Link href={'/knowledge/1'} className={style.postTitle}>대한민국의 유명한 산은?</Link>
         </div>
       </div>
     </main>

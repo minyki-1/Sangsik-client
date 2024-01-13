@@ -1,16 +1,16 @@
 .darkLogo {
+  cursor: pointer;
   display: none;
   [data-theme="dark"] & {
     display: block;
-    fill: var(--color-1);
-    height: 48px;
+    height: 42px;
     width: auto;
   }
 }
 .lightLogo {
+  cursor: pointer;
   display: block;
-  fill: var(--color-1);
-  height: 48px;
+  height: 42px;
   width: auto;
   [data-theme="dark"] & {
     display: none;
@@ -46,17 +46,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
+    width: 38px;
     aspect-ratio: 1/1;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid var(--color-1);
     background-color: var(--symbol-1);
     box-shadow: 0px 2px 0px 1px rgba(15, 15, 15, 0.25);
     transition: transform 0.1s;
+
+    svg {
+      fill: var(--dark-1);
+    }
   }
 
   h1 {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--color-1);
     font-weight: bold;
     margin: 0px;

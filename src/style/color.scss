@@ -1,0 +1,16 @@
+$white: #fafafa;
+$black: #0b0d14;
+$symbol: #9dee86;
+$lightGray-1: #e7e7e7;
+$lightGray-2: #d9d9d9;
+$darkGray: #313131;
+
+:root {
+  --white-1: #{$white};
+  --black-1: #{$black};
+  --bg-1: #{$white};
+  --color-1: #{$black};
+  --symbol-1: #{$symbol};
+  --gray-1: #{$lightGray-1};
+  --gray-2: #{$lightGray-2};
+}

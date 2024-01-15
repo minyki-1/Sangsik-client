@@ -14,6 +14,7 @@ interface Props {
 
 export default function TextEditor({ state }: Props) {
   const editorRef = useRef<Editor>(null);
+  const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
   const [text, setText] = state;
 
   const uploadImage = async (file: File) => {
@@ -26,7 +27,7 @@ export default function TextEditor({ state }: Props) {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('http://localhost:8080/upload', formData, {
+      const response = await axios.post(`${serverURL}/api/image/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

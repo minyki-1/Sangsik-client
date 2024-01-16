@@ -18,6 +18,10 @@
 }
 
 .postImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   width: 100%;
   aspect-ratio: 16/9;
   display: flex;

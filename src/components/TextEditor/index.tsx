@@ -43,7 +43,6 @@ export default function TextEditor({ state }: Props) {
     const data = editorRef.current?.getInstance().getHTML();
     localStorage.setItem('editorData', data);
     setText(data);
-    console.log(data)
   };
 
   const imageSetting = (editor: Editor) => {

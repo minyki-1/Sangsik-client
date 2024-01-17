@@ -33,6 +33,13 @@ export const options: NextAuthOptions = {
             email,
             image: picture,
           };
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            id: token.sub,
+          },
+        };
       }
       return session;
     },

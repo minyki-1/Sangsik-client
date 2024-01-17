@@ -1,10 +1,11 @@
 import style from "./page.module.scss";
 import Image from "next/image"
-import HeartIcon from "@/assets/icons/heart.svg";
-import BookmarkIcon from "@/assets/icons/bookmark.svg";
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { notoSansKr } from "@/app/layout";
 import zlib from "zlib"
+import LikeAndBookmark from "@/components/LikeAndBookmark";
+import { getServerSession } from "next-auth/next";
+import { options } from "@/app/api/auth/[...nextauth]/option";
 
 interface IProps {
   params: {
@@ -14,6 +15,8 @@ interface IProps {
 
 export default async function Page(props: IProps) {
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
+  const session = await getServerSession(options)
+  const user = session?.user;
   const resp = await fetch(`${serverURL}/api/post/one/${props.params.id}`);
   const post = await resp.json();
   const { title, content, likes, authorId } = post.data;
@@ -35,16 +38,13 @@ export default async function Page(props: IProps) {
             <p className={style.point}>·</p>
             <p className={style.day}>12시간 전</p>
           </div>
-          <div className={style.info2}>
-            <span>
-              <HeartIcon />
-              <p>{likes}</p>
-            </span>
-            <span>
-              <BookmarkIcon />
-              <p>저장</p>
-            </span>
-          </div>
+          <LikeAndBookmark
+            postId={props.params.id}
+            userId={(user as any).id ?? undefined}
+            likes={likes}
+            isUserBookmark={false}
+            isUserLike={false}
+          />
         </div>
         <main className={'toastui-editor-contents'}>
           <div className={notoSansKr.className} dangerouslySetInnerHTML={{ __html: unzipContent }} />

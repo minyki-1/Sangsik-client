@@ -1,4 +1,5 @@
 import Header from '@/components/Header'
+import Provider from '@/components/Provider';
 import '@/style/globals.scss'
 import type { Metadata } from 'next'
 import { Noto_Sans_KR } from "next/font/google";
@@ -21,8 +22,12 @@ export default function RootLayout({
   return (
     <html>
       <body className={notoSansKr.className}>
-        <Header />
-        {children}
+        <Provider>
+          <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <Header />
+            {children}
+          </div>
+        </Provider>
       </body>
     </html>
   )

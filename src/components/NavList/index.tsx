@@ -1,5 +1,5 @@
 'use client';
-import style from "./index.module.scss";
+import style from "./style.module.scss";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from "react";

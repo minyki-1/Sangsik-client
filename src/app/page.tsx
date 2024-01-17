@@ -7,7 +7,6 @@ export default async function Home() {
   const resp = await fetch(`${serverURL}/api/post/latest`, { next: { revalidate: 20 } });
   // const resp = await fetch(`${serverURL}/api/post/latest`);
   const postList = await resp.json();
-  console.log(postList)
   return (
     <div>
       <Search />

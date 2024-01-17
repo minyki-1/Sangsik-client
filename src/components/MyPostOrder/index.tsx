@@ -1,5 +1,5 @@
 'use client'
-import style from './index.module.scss'
+import style from './style.module.scss'
 import BookmarkIcon from '@/assets/icons/bookmark.svg'
 import BulbIcon from '@/assets/icons/bulb.svg'
 import EditIcon from '@/assets/icons/edit.svg'

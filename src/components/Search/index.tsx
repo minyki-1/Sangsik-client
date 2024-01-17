@@ -1,4 +1,4 @@
-import style from './index.module.scss'
+import style from './style.module.scss'
 import SearchIcon from '@/assets/icons/search.svg'
 
 export default function Search() {

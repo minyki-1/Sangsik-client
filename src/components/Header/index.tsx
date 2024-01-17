@@ -1,4 +1,4 @@
-import style from "./index.module.scss";
+import style from "./style.module.scss";
 import LogoLightIcon from '@/assets/icons/logo-light.svg'
 import LogoDarkIcon from '@/assets/icons/logo-dark.svg'
 import ArrowSmallUpIcon from '@/assets/icons/arrow-small-up.svg'

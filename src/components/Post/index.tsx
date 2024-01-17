@@ -1,4 +1,4 @@
-import style from "./index.module.scss";
+import style from "./style.module.scss";
 import Image from "next/image";
 import HeartIcon from "@/assets/icons/heart.svg";
 import BookmarkIcon from "@/assets/icons/bookmark.svg";
@@ -20,7 +20,12 @@ export default function Post({ id, title, previewImage, authorImg, authorName, l
       {
         previewImage ?
           <Link href={`/knowledge/${id}`} className={style.postImg}>
-            <Image src={previewImage || ''} alt="preview image" width={800} height={800 / 16 * 9} />
+            <Image
+              src={previewImage || ''}
+              alt="preview image"
+              fill={true}
+              objectFit="cover"
+            />
           </Link> : null
       }
       <div className={style.postInfoWrap}>

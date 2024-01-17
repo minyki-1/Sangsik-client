@@ -1,0 +1,19 @@
+.loginBtn {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  border-radius: 8px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px 0px rgba(14, 14, 14, 0.1);
+  img {
+    margin-right: 14px;
+  }
+  h1 {
+    margin: 0px;
+    font-size: 14px;
+    opacity: 0.8;
+    padding-right: 12px;
+  }
+}

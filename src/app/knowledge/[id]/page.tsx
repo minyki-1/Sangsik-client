@@ -19,7 +19,7 @@ export default async function Page(props: IProps) {
   const user = session?.user;
   const resp = await fetch(`${serverURL}/api/post/one/${props.params.id}`);
   const post = await resp.json();
-  const { title, content, likes, authorId } = post.data;
+  const { title, content, likes, authorId, likeCount, bookmarks } = post.data;
   const unzipContent = zlib.gunzipSync(Buffer.from(content, 'base64')).toString()
   return (
     <div className={style.container}>
@@ -41,9 +41,9 @@ export default async function Page(props: IProps) {
           <LikeAndBookmark
             postId={props.params.id}
             userId={(user as any).id ?? undefined}
-            likes={likes}
-            isUserBookmark={false}
-            isUserLike={false}
+            likes={likeCount}
+            isUserLike={likes.includes((user as any).id)}
+            isUserBookmark={bookmarks.includes((user as any).id)}
           />
         </div>
         <main className={'toastui-editor-contents'}>

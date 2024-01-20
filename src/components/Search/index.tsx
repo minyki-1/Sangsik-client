@@ -8,6 +8,7 @@ export default function Search() {
   const searchParams = useSearchParams()
   const router = useRouter();
   const [order, setOrder] = useState(searchParams.get('order') || '/');
+  const [search, setSearch] = useState('');
 
   return (
     <article className={style.container}>
@@ -27,8 +28,15 @@ export default function Search() {
           <option value="latest">최신순</option>
         </select>
         <div className={style.searchWrap}>
-          <input type="text" placeholder='세계에서 가장 높은 산은?' />
-          <SearchIcon />
+          <input
+            type="text"
+            placeholder='세계에서 가장 높은 산은?'
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+          />
+          <SearchIcon onClick={() => {
+            router.push(`?q=${encodeURIComponent(search)}`);
+          }} />
         </div>
       </div>
     </article>

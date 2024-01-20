@@ -44,7 +44,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "../server/src/routers/PostRoutes.ts"  ],
   "exclude": [
     "node_modules"
   ]

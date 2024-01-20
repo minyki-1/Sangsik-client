@@ -25,6 +25,7 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
 
   const handleLikeBtn = () => {
     setIsLike(value => !value)
+    setLikeCount(value => isLike ? value - 1 : value + 1);
     if (!userId) {
       if (confirm('로그인 후에 좋아요를 할 수 있습니다.\n로그인 페이지로 이동하시겠습니까?'))
         return router.push("/my/bookmark");
@@ -34,10 +35,10 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
     axios.put(`${serverURL}/api/post/toggle/like/${postId}/${userId}`)
       .then(response => {
         console.log('Success:', response.data);
-        setLikeCount(value => isLike ? value - 1 : value + 1);
       })
       .catch(error => {
         console.error('Error:', error);
+        setLikeCount(value => isLike ? value + 1 : value - 1);
       });
   }
   const handleBMKBtn = () => {

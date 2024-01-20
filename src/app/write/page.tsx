@@ -4,6 +4,7 @@ import style from "./page.module.scss"
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSession } from "next-auth/react"
+import { SessionUser } from "@/types/session";
 const TextEditor = dynamic(() => import("@/components/TextEditor"), {
   ssr: false,
   loading: () => <></>,
@@ -13,7 +14,7 @@ export default function Page() {
   const textState = useState(' ');
   const [title, setTitle] = useState('');
   const { data: session, status } = useSession()
-  const user = session?.user;
+  const user = session?.user as SessionUser;
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function Page() {
   }, [textState])
 
   const uploadPost = () => {
+    if (!user && !confirm('로그인이 되어있지 않습니다. 로그인 페이지로 이동하시겠습니까?')) return;
     if (!confirm('게시하시겠습니까?')) return;
     const [text] = textState;
 
@@ -30,7 +32,7 @@ export default function Page() {
       title,
       content: text,
       // previewImage: '이미지 URL',
-      authorId: (user as any).id
+      authorId: user.id
     };
 
     axios.post(`${serverURL}/api/post`, postData)

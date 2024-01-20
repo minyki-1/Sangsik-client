@@ -6,6 +6,7 @@ import zlib from "zlib"
 import LikeAndBookmark from "@/components/LikeAndBookmark";
 import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/[...nextauth]/option";
+import { SessionUser } from "@/types/session";
 
 interface IProps {
   params: {
@@ -16,7 +17,7 @@ interface IProps {
 export default async function Page(props: IProps) {
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
   const session = await getServerSession(options)
-  const user = session?.user;
+  const user = session?.user as SessionUser;
   const resp = await fetch(`${serverURL}/api/post/one/${props.params.id}`);
   const post = await resp.json();
   const { title, content, likes, authorId, likeCount, bookmarks } = post.data;
@@ -40,10 +41,10 @@ export default async function Page(props: IProps) {
           </div>
           <LikeAndBookmark
             postId={props.params.id}
-            userId={(user as any).id ?? undefined}
+            userId={user ? (user.id ?? undefined) : undefined}
             likes={likeCount}
-            isUserLike={likes.includes((user as any).id)}
-            isUserBookmark={bookmarks.includes((user as any).id)}
+            isUserLike={user ? likes.includes(user.id) : false}
+            isUserBookmark={user ? bookmarks.includes(user.id) : false}
           />
         </div>
         <main className={'toastui-editor-contents'}>

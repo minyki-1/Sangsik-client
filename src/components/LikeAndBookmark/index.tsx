@@ -6,15 +6,21 @@ import BookmarkFillIcon from "@/assets/icons/bookmark-fill.svg";
 import style from "./style.module.scss"
 import { useRouter, usePathname } from "next/navigation";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 interface IProps {
   likes: number,
-  postId: string,
+  postId?: string,
   userId?: string,
   isUserLike: boolean,
   isUserBookmark: boolean,
+}
+
+interface IPostCache {
+  isLike: boolean;
+  isBookmark: boolean;
+  likeCount: number;
 }
 
 export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isUserBookmark }: IProps) {
@@ -24,33 +30,33 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
   const [isBookmark, setIsBookmark] = useState(isUserBookmark);
   const [likeCount, setLikeCount] = useState(likes);
 
-  const handleLikeBtn = () => {
-    setIsLike(value => !value)
-    setLikeCount(value => isLike ? value - 1 : value + 1);
+  const handleLikeBtn = async () => {
     if (!userId) {
       if (confirm('로그인 후에 좋아요를 할 수 있습니다.\n로그인 페이지로 이동하시겠습니까?'))
         return router.push("/my/bookmark");
       return;
     }
+    const changedLike = !isLike;
+    setIsLike(changedLike)
+    const changedLikeCount = isLike ? likeCount - 1 : likeCount + 1;
+    setLikeCount(changedLikeCount);
 
-    axios.put(`${serverURL}/api/post/toggle/like/${postId}/${userId}`)
-      .then(response => {
-        console.log('Success:', response.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setLikeCount(value => isLike ? value + 1 : value - 1);
-      });
+    sessionStorage.setItem(`postCache_${postId}`,
+      JSON.stringify({ isLike: changedLike, isBookmark, likeCount: changedLikeCount }))
+
+    await axios.put(`${serverURL}/api/post/toggle/like/${postId}/${userId}`)
   }
-  const handleBMKBtn = () => {
-    setIsBookmark(value => !value)
 
+  const handleBMKBtn = () => {
     if (!userId) {
       if (confirm('로그인 후에 북마크를 할 수 있습니다.\n로그인 페이지로 이동하시겠습니까?'))
         return router.push("/my/bookmark");
       return;
     }
 
+    const changedBookmark = !isBookmark;
+    setIsBookmark(changedBookmark);
+    sessionStorage.setItem(`postCache_${postId}`, JSON.stringify({ isLike, isBookmark: changedBookmark, likeCount }))
     axios.put(`${serverURL}/api/post/toggle/bookmark/${postId}/${userId}`)
       .then(response => {
         console.log('Success:', response.data);
@@ -59,6 +65,21 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
         console.error('Error:', error);
       });
   }
+
+  useEffect(() => {
+    const postCache: IPostCache | null = JSON.parse(
+      sessionStorage.getItem(`postCache_${postId}`) || JSON.stringify(null)
+    );
+
+    if (!postCache) return;
+
+    if (postCache) {
+      setIsLike(postCache.isLike)
+      setLikeCount(postCache.likeCount);
+      setIsBookmark(postCache.isBookmark)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserLike, isUserBookmark, likes])
 
   return (
     <div className={style.container}>

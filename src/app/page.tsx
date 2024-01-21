@@ -12,13 +12,12 @@ export default async function Home(props: any) {
     const resp = await fetch(`${serverURL}/api/post/popular`, { next: { revalidate: 20 } });
     postList = await resp.json();
   }
-  console.log(postList)
   return (
     <div>
       <Search />
       <main className={style.postList}>
         {
-          postList.data.map((data: any, key: number) => (
+          postList.data?.map((data: any, key: number) => (
             <Post
               key={key}
               id={data._id}

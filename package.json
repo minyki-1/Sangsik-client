@@ -20,6 +20,7 @@
     "react-dom": "^18",
     "react-draft-wysiwyg": "^1.15.0",
     "react-quill": "^2.0.0",
+    "react-toastify": "^10.0.4",
     "zlib": "^1.0.5"
   },
   "devDependencies": {

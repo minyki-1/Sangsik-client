@@ -7,6 +7,7 @@ import style from "./style.module.scss"
 import { useRouter, usePathname } from "next/navigation";
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface IProps {
   likes: number,
@@ -58,6 +59,7 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
         console.error('Error:', error);
       });
   }
+
   return (
     <div className={style.container}>
       <span onClick={handleLikeBtn}>
@@ -71,6 +73,19 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
           isBookmark ? <BookmarkFillIcon /> : <BookmarkIcon />
         }
         <p>저장</p>
+      </span>
+      <span onClick={() => {
+        const postUrl = `${window.location.origin}/knowledge/${postId}`;
+        navigator.clipboard.writeText(postUrl)
+          .then(() => {
+            toast.success("링크 복사 완료!")
+          })
+          .catch(err => {
+            console.error('링크 복사 실패:', err);
+            toast.error("링크 복사 실패")
+          });
+      }}>
+        <p>공유</p>
       </span>
     </div>
   )

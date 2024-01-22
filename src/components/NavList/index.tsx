@@ -21,7 +21,7 @@ export default function NavList() {
       <Link href={'/'} className={style.navBtn} data-selected={page === '/'}>
         모두의 상식
       </Link>
-      <Link href={'/my/bookmark'} className={style.navBtn} data-selected={page === '/my'}>
+      <Link href={'/my'} className={style.navBtn} data-selected={page === '/my'}>
         나만의 상식
       </Link>
       <Link href={'/event'} className={style.navBtn} data-selected={page === '/event'}>

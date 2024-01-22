@@ -13,13 +13,13 @@ export default function MyPostOrder() {
     <>
       <div className={style.container}>
         <div className={style.orderWrap}>
+          <Link href={'/my'} className={style.order} data-selected={pathname === '/my'}>
+            <BulbIcon />
+            <p>내상식</p>
+          </Link>
           <Link href={'/my/bookmark'} className={style.order} data-selected={pathname === '/my/bookmark'}>
             <BookmarkIcon />
             <p>북마크</p>
-          </Link>
-          <Link href={'/my/post'} className={style.order} data-selected={pathname === '/my/post'}>
-            <BulbIcon />
-            <p>내상식</p>
           </Link>
         </div>
         <Link href={'/write'} className={style.createBtn} onClick={() => { localStorage.removeItem('editorData') }}>

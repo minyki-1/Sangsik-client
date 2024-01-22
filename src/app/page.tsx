@@ -2,15 +2,26 @@ import style from "./page.module.scss";
 import Post from "@/components/Post";
 import Search from "@/components/Search";
 
-export default async function Home(props: any) {
+interface IProps {
+  searchParams: {
+    order?: "latest",
+    q?: string,
+  }
+}
+
+export default async function Home(props: IProps) {
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
-  let postList = null;
-  if (props.searchParams.order === 'latest') {
-    const resp = await fetch(`${serverURL}/api/post/latest`, { next: { revalidate: 20 } });
-    postList = await resp.json();
-  } else {
-    const resp = await fetch(`${serverURL}/api/post/popular`, { next: { revalidate: 20 } });
-    postList = await resp.json();
+  const { order, q } = props.searchParams;
+  const resp = await fetch(`${serverURL}/api/post?${getOrder()}${getQuery()}`, { next: { revalidate: 60 } });
+  const postList = await resp.json();
+
+  function getOrder() {
+    if (order === 'latest') return 'order=latest'
+    return 'order=popular'
+  }
+  function getQuery() {
+    if (q) return `&q=${encodeURIComponent(q)}`
+    return ''
   }
   return (
     <div>

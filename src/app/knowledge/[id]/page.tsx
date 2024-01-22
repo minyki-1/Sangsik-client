@@ -19,7 +19,7 @@ interface IProps {
 const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
 
 export const getData = async (id: string) => {
-  const resp = await fetch(`${serverURL}/api/post/one/${id}`);
+  const resp = await fetch(`${serverURL}/api/post/${id}`);
   const post = await resp.json();
   return post.data
 }

@@ -73,11 +73,10 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
 
     if (!postCache) return;
 
-    if (postCache) {
-      setIsLike(postCache.isLike)
-      setLikeCount(postCache.likeCount);
-      setIsBookmark(postCache.isBookmark)
-    }
+    setIsLike(postCache.isLike);
+    setLikeCount(postCache.likeCount);
+    setIsBookmark(postCache.isBookmark);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserLike, isUserBookmark, likes])
 

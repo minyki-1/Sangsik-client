@@ -2,7 +2,7 @@ import style from "./layout.module.scss"
 import MyPostOrder from '@/components/MyPostOrder'
 import MyProfile from '@/components/MyProfile'
 import { getServerSession } from 'next-auth/next';
-import { options } from '../api/auth/[...nextauth]/option';
+import { options } from '@/utils/authOptions';
 import LoginBtn from "@/components/LoginBtn";
 
 export default async function Layout({

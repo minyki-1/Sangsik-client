@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next"
 import style from "./style.module.scss"
 import Image from "next/image"
-import { options } from "@/app/api/auth/[...nextauth]/option";
+import { options } from "@/utils/authOptions";
 import LogOutButton from "../LogoutBtn";
 
 export default async function MyProfile() {

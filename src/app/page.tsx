@@ -11,7 +11,13 @@ interface IProps {
 export default async function Home(props: IProps) {
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
   const { order, q } = props.searchParams;
-  const resp = await fetch(`${serverURL}/api/post?${getOrder()}${getQuery()}`, { next: { revalidate: 60 } });
+  const resp = await fetch(`${serverURL}/api/post?${getOrder()}${getQuery()}`, {
+    next: { revalidate: 60 },
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
   const postList = await resp.json();
 
   function getOrder() {

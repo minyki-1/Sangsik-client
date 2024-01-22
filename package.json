@@ -21,6 +21,7 @@
     "react-draft-wysiwyg": "^1.15.0",
     "react-quill": "^2.0.0",
     "react-toastify": "^10.0.4",
+    "sharp": "^0.33.2",
     "zlib": "^1.0.5"
   },
   "devDependencies": {

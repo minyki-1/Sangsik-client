@@ -1,6 +1,6 @@
 import PostList from "@/components/PostList";
 import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/option";
+import { options } from "@/utils/authOptions";
 import { SessionUser } from "@/types/session";
 
 export default async function Page() {

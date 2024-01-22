@@ -12,7 +12,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -28,7 +28,7 @@
     "plugins": [
       {
         "name": "next"
-      },
+      }
     ],
     "paths": {
       "@/*": [
@@ -43,8 +43,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "../server/src/routers/PostRoutes.ts"  ],
+    ".next/types/**/*.ts",
+    "../server/src/routers/PostRoutes.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

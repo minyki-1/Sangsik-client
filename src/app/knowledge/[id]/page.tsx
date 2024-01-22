@@ -5,7 +5,7 @@ import { notoSansKr } from "@/app/layout";
 import zlib from "zlib"
 import LikeAndBookmark from "@/components/LikeAndBookmark";
 import { getServerSession } from "next-auth/next";
-import { options } from "@/app/api/auth/[...nextauth]/option";
+import { options } from "@/utils/authOptions";
 import { SessionUser } from "@/types/session";
 import { Metadata } from "next/types";
 

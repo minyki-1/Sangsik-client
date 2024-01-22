@@ -13,7 +13,7 @@ const TextEditor = dynamic(() => import("@/components/TextEditor"), {
 export default function Page() {
   const textState = useState(' ');
   const [title, setTitle] = useState('');
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const user = session?.user as SessionUser;
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
 

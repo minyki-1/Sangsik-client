@@ -1,5 +1,4 @@
-import style from "./page.module.scss";
-import Post from "@/components/Post";
+import PostList from "@/components/PostList";
 import Search from "@/components/Search";
 
 interface IProps {
@@ -26,22 +25,7 @@ export default async function Home(props: IProps) {
   return (
     <div>
       <Search />
-      <main className={style.postList}>
-        {
-          postList.data?.map((data: any, key: number) => (
-            <Post
-              key={key}
-              id={data._id}
-              title={data.title}
-              previewImage={data.previewImage}
-              authorName={data.authorId.name}
-              authorImg={data.authorId.picture}
-              likeCount={data.likeCount}
-              bookmarkCount={data.bookmarkCount}
-            />
-          ))
-        }
-      </main>
+      <PostList data={postList.data} />
     </div>
   )
 }

@@ -25,6 +25,13 @@ export default function Search() {
     setOrder(searchParams.get('order') || '/')
   }, [searchParams])
 
+  const searchHandle = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    if (search === '') return;
+    queryParams.set('q', search);
+    router.push(`?${queryParams.toString()}`);
+  }
+
   return (
     <article className={style.container}>
       <div className={style.alignRight}>
@@ -42,13 +49,11 @@ export default function Search() {
             placeholder='세계에서 가장 높은 산은?'
             onChange={(e) => setSearch(e.target.value)}
             value={search}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') searchHandle();
+            }}
           />
-          <SearchIcon onClick={() => {
-            const queryParams = new URLSearchParams(window.location.search);
-            queryParams.set('q', search);
-            router.push(`?${queryParams.toString()}`);
-
-          }} />
+          <SearchIcon onClick={searchHandle} />
         </div>
       </div>
     </article>

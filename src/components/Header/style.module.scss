@@ -17,11 +17,22 @@
   }
 }
 
+@media (max-width: 800px) {
+  .darkLogo,
+  .lightLogo {
+    height: 36px;
+  }
+}
+
 .container {
   display: flex;
   padding: 20px 42px;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 800px) {
+    padding: 16px 20px;
+  }
 }
 
 @keyframes jump {
@@ -69,6 +80,67 @@
   &:hover {
     button {
       animation: jump 0.4s ease-in-out 2;
+    }
+  }
+
+  @media (max-width: 800px) {
+    display: none;
+  }
+}
+
+.menuIcon {
+  width: 22px;
+  height: 22px;
+  padding: 6px;
+  cursor: pointer;
+  display: none;
+  fill: var(--color-1);
+  @media (max-width: 700px) {
+    display: flex;
+  }
+}
+
+.menuBox {
+  position: fixed;
+  width: 300px;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.menuList {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 260px;
+  max-width: 90vw;
+  background-color: var(--bg-1);
+  box-shadow: 0px 0px 12px 2px rgba(13, 13, 13, 0.25);
+  right: 0px;
+  top: 0px;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 24px;
+  z-index: 100;
+  a {
+    text-decoration: none;
+    font-size: 18px;
+    margin-bottom: 16px;
+    padding: 6px 0px;
+    color: var(--color-1);
+  }
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    svg {
+      width: 18px;
+      height: 18px;
+      padding: 8px;
+      margin-right: 16px;
+      margin-top: 16px;
     }
   }
 }

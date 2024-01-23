@@ -1,20 +1,21 @@
-.postList {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  margin-top: 60px;
-  padding: 0px 40px;
-}
-
 .post {
   display: flex;
   flex-direction: column;
-  width: calc((100% / 3) - 24px);
+  width: calc((100% - 60px) / 3);
   margin-bottom: 48px;
   background-color: var(--gray-1);
   box-shadow: 0px 4px 8px 2px rgba(13, 13, 13, 0.2);
   border-radius: 4px;
+
+  @media (max-width: 1050px) {
+    width: calc((100% - 30px) / 2);
+    margin-bottom: 36px;
+  }
+  @media (max-width: 700px) {
+    // margin: -12px;
+    width: calc(100%);
+    margin-bottom: 36px;
+  }
 }
 
 .postImg {

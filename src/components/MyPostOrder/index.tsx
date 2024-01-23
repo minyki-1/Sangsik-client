@@ -10,23 +10,21 @@ export default function MyPostOrder() {
   const pathname = usePathname();
 
   return (
-    <>
-      <div className={style.container}>
-        <div className={style.orderWrap}>
-          <Link href={'/my'} className={style.order} data-selected={pathname === '/my'}>
-            <BulbIcon />
-            <p>내상식</p>
-          </Link>
-          <Link href={'/my/bookmark'} className={style.order} data-selected={pathname === '/my/bookmark'}>
-            <BookmarkIcon />
-            <p>북마크</p>
-          </Link>
-        </div>
-        <Link href={'/write'} className={style.createBtn} onClick={() => { localStorage.removeItem('editorData') }}>
-          <EditIcon />
-          <p>새 상식 작성</p>
+    <div className={style.container}>
+      <div className={style.orderWrap}>
+        <Link href={'/my'} className={style.order} data-selected={pathname === '/my'}>
+          <BulbIcon />
+          <p>내상식</p>
+        </Link>
+        <Link href={'/my/bookmark'} className={style.order} data-selected={pathname === '/my/bookmark'}>
+          <BookmarkIcon />
+          <p>북마크</p>
         </Link>
       </div>
-    </>
+      <Link href={'/write'} className={style.createBtn} onClick={() => { localStorage.removeItem('editorData') }}>
+        <EditIcon />
+        <p>새 상식 작성</p>
+      </Link>
+    </div>
   )
 }

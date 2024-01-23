@@ -22,7 +22,9 @@ export default async function MyProfile() {
           <LogOutButton />
         </div>
       </div>
-      <div className={style.badgeList}>추후에 뱃지 시스템이 추가될 부분입니다.</div>
+      <div className={style.badgeList}>
+        <p>추후에 뱃지 시스템이 추가될 부분입니다.</p>
+      </div>
     </div>
   )
 }

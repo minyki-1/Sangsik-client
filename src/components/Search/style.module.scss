@@ -5,6 +5,9 @@
   flex-direction: column;
   margin-top: 36px;
   flex: 1;
+  @media (max-width: 600px) {
+    margin-top: 24px;
+  }
 }
 
 .alignRight {
@@ -28,6 +31,7 @@
   align-items: center;
   justify-content: center;
   width: 550px;
+  max-width: 90vw;
   background-color: #dadada;
   border-radius: 12px;
   box-shadow: 3px 4px 4px 0px rgba(13, 13, 13, 0.25);
@@ -41,6 +45,11 @@
     padding-right: 0px;
     outline: none;
     border: none;
+
+    @media (max-width: 600px) {
+      padding: 16px 24px;
+      font-size: 14px;
+    }
   }
   svg {
     cursor: pointer;
@@ -49,5 +58,12 @@
     width: 24px;
     height: 24px;
     fill: var(--black-1);
+
+    @media (max-width: 600px) {
+      width: 20px;
+      height: 20px;
+      padding: 12px;
+      padding-right: 24px;
+    }
   }
 }

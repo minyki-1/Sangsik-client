@@ -4,9 +4,11 @@
   color: white;
 }
 
+.toastui-editor-defaultUI-toolbar {
+  background-color: initial;
+}
+
 .toastui-editor-defaultUI .ProseMirror {
-  font-family: "__Noto_Sans_KR_fc3d07", "__Noto_Sans_KR_Fallback_fc3d07";
-  // background-color: var(--bg-1);
   h1,
   h2,
   h3,

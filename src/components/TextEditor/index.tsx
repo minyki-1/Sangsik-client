@@ -1,12 +1,12 @@
 import { Editor } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
+// import '@toast-ui/editor/dist/toastui-editor.css';
+import '@/style/tuiBasic.scss'
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import axios from 'axios';
-
 
 interface Props {
   state: [string, Dispatch<SetStateAction<string>>];
@@ -41,6 +41,7 @@ export default function TextEditor({ state }: Props) {
 
   const onChange = () => {
     const data = editorRef.current?.getInstance().getHTML();
+    if (!data) return;
     localStorage.setItem('editorData', data);
     setText(data);
   };
@@ -77,12 +78,21 @@ export default function TextEditor({ state }: Props) {
     <Editor
       initialValue={text}
       previewStyle="vertical"
-      height="75vh"
+      hideModeSwitch={true}
+      height="70vh"
       initialEditType="wysiwyg"
       useCommandShortcut={true}
-      usageStatistics={false}
+      usageStatistics={true}
       plugins={[colorSyntax]}
-      language="ko-KR"
+      // language="ko-KR"
+      toolbarItems={[
+        ['heading', 'bold', 'italic', 'strike'],
+        ['hr', 'quote'],
+        ['ul', 'ol', 'task'],
+        ['table', 'image', 'link'],
+        // ['code', 'codeblock'],
+        // ['scrollSync'],
+      ]}
       ref={editorRef}
       onChange={onChange}
     />

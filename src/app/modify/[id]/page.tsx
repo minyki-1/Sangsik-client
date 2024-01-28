@@ -1,4 +1,4 @@
-import style from "./page.module.scss";
+// import style from "./page.module.scss";
 import Image from "next/image"
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { notoSansKr } from "@/app/layout";
@@ -38,8 +38,10 @@ export default async function Page(props: IProps) {
   const { title, content, likes, authorId, likeCount, bookmarks } = await getData(props.params.id);
   const unzipContent = zlib.gunzipSync(Buffer.from(content, 'base64')).toString()
   return (
-    <div className={style.container}>
-      <div className={style.post}>
+    <div
+    // className={style.container}
+    >
+      {/* <div className={style.post}>
         <h1 className={style.title}>{title}</h1>
         <div className={style.infoWrap}>
           <div className={style.info1}>
@@ -66,7 +68,7 @@ export default async function Page(props: IProps) {
         <main className={'toastui-editor-contents'}>
           <div className={notoSansKr.className} dangerouslySetInnerHTML={{ __html: unzipContent }} />
         </main>
-      </div>
+      </div> */}
     </div>
   )
 }

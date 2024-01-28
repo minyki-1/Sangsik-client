@@ -3,11 +3,15 @@ import HeartIcon from "@/assets/icons/heart.svg";
 import HeartFillIcon from "@/assets/icons/heart-fill.svg";
 import BookmarkIcon from "@/assets/icons/bookmark.svg";
 import BookmarkFillIcon from "@/assets/icons/bookmark-fill.svg";
+import ShareIcon from "@/assets/icons/share.svg";
+import EditIcon from "@/assets/icons/edit.svg";
+import ReportIcon from "@/assets/icons/flag-alt.svg";
 import style from "./style.module.scss"
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import MenuIcon from "@/assets/icons/menu-dots.svg";
 
 interface IProps {
   likes: number,
@@ -15,6 +19,7 @@ interface IProps {
   userId?: string,
   isUserLike: boolean,
   isUserBookmark: boolean,
+  isMyPost: boolean
 }
 
 interface IPostCache {
@@ -23,17 +28,18 @@ interface IPostCache {
   likeCount: number;
 }
 
-export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isUserBookmark }: IProps) {
+export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isUserBookmark, isMyPost }: IProps) {
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
   const router = useRouter();
   const [isLike, setIsLike] = useState(isUserLike);
   const [isBookmark, setIsBookmark] = useState(isUserBookmark);
   const [likeCount, setLikeCount] = useState(likes);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleLikeBtn = async () => {
     if (!userId) {
       if (confirm('로그인 후에 좋아요를 할 수 있습니다.\n로그인 페이지로 이동하시겠습니까?'))
-        return router.push("/my/bookmark");
+        return router.push("/my");
       return;
     }
     const changedLike = !isLike;
@@ -50,7 +56,7 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
   const handleBMKBtn = () => {
     if (!userId) {
       if (confirm('로그인 후에 북마크를 할 수 있습니다.\n로그인 페이지로 이동하시겠습니까?'))
-        return router.push("/my/bookmark");
+        return router.push("/my");
       return;
     }
 
@@ -64,6 +70,21 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
       .catch(error => {
         console.error('Error:', error);
       });
+  }
+
+  const handleReport = async () => {
+    if (!userId) {
+      if (confirm('로그인 후에 신고를 할 수 있습니다.\n로그인 페이지로 이동하시겠습니까?'))
+        return router.push("/my");
+      return;
+    }
+    if (!confirm('이 글을 정말로 신고하시겠습니까?')) return;
+    if (!postId) return;
+    const url = `${serverURL}/api/post/report?postId=${encodeURIComponent(postId)}&userId=${encodeURIComponent(userId)}`;
+    const response = await fetch(url, { method: 'POST' });
+    const data = await response.json();
+    if (data.status === 'success')
+      toast.success("신고 완료");
   }
 
   useEffect(() => {
@@ -105,7 +126,29 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
             toast.error("링크 복사 실패")
           });
       }}>
+        <ShareIcon />
         <p>공유</p>
+      </span>
+      {
+        isMyPost ?
+          <span>
+            <EditIcon />
+            <p>수정</p>
+          </span> : null
+      }
+      <span
+        tabIndex={0}
+        onClick={() => setOpenMenu(value => !value)}
+        onBlur={() => setOpenMenu(false)}
+      >
+        <MenuIcon />
+        {
+          openMenu ?
+            <div className={style.menu} onClick={handleReport}>
+              <ReportIcon />
+              <p>신고</p>
+            </div> : null
+        }
       </span>
     </div>
   )

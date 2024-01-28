@@ -1,10 +1,13 @@
 'use client'
 import { useEffect, useState } from "react";
 import style from "./page.module.scss"
-import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSession } from "next-auth/react"
 import { SessionUser } from "@/types/session";
+import { useRouter } from "next/navigation"
+import dynamic from "next/dynamic";
+import ArrowIcon from "@/assets/icons/arrow-small-up.svg";
+import UploadIcon from "@/assets/icons/upload.svg";
 const TextEditor = dynamic(() => import("@/components/TextEditor"), {
   ssr: false,
   loading: () => <></>,
@@ -16,6 +19,7 @@ export default function Page() {
   const { data: session } = useSession()
   const user = session?.user as SessionUser;
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
+  const router = useRouter();
 
   useEffect(() => {
     const setText = textState[1]
@@ -24,7 +28,11 @@ export default function Page() {
   }, [textState])
 
   const uploadPost = () => {
-    if (!user && !confirm('로그인이 되어있지 않습니다. 로그인 페이지로 이동하시겠습니까?')) return;
+    if (!user) {
+      if (confirm('로그인이 되어있지 않습니다. 로그인 페이지로 이동하시겠습니까?'))
+        return router.push('/my');
+      return;
+    }
     if (!confirm('게시하시겠습니까?')) return;
     const [text] = textState;
 
@@ -47,17 +55,25 @@ export default function Page() {
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <h1>새 상식 작성</h1>
-        <button onClick={uploadPost}>게시하기</button>
+        <div className={style.outBtn} onClick={() => router.back()}>
+          <ArrowIcon />
+          <h1>나가기</h1>
+        </div>
+        <button onClick={uploadPost}>
+          {/* <UploadIcon /> */}
+          게시하기
+        </button>
       </div>
-      <input
-        type="text"
-        className={style.title}
-        placeholder="이곳에 제목 작성"
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
-      />
-      <TextEditor state={textState} />
+      <div className={style.contents}>
+        <input
+          type="text"
+          className={style.title}
+          placeholder="이곳에 제목 작성"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+        />
+        <TextEditor state={textState} />
+      </div>
     </div>
   )
 }

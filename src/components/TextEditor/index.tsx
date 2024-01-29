@@ -1,21 +1,22 @@
 import { Editor } from '@toast-ui/react-editor';
 // import '@toast-ui/editor/dist/toastui-editor.css';
-import '@/style/tuiBasic.scss'
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 interface Props {
-  state: [string, Dispatch<SetStateAction<string>>];
+  state: string;
+  setState: Dispatch<SetStateAction<string>>;
+  // onLoaded: (editor: RefObject<Editor>) => void;
 }
 
-export default function TextEditor({ state }: Props) {
+export default function TextEditor({ state, setState }: Props) {
   const editorRef = useRef<Editor>(null);
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
-  const [text, setText] = state;
+  const [contents, setContents] = useState(' ');
 
   const uploadImage = async (file: File) => {
     if (!file) {
@@ -41,9 +42,10 @@ export default function TextEditor({ state }: Props) {
 
   const onChange = () => {
     const data = editorRef.current?.getInstance().getHTML();
-    if (!data) return;
+    if (!data || data === '<p><br></p>') return;
     localStorage.setItem('editorData', data);
-    setText(data);
+    setContents(data);
+    setState(data);
   };
 
   const imageSetting = (editor: Editor) => {
@@ -57,6 +59,9 @@ export default function TextEditor({ state }: Props) {
   useEffect(() => {
     const editor = editorRef.current;
     if (!editor) return;
+    const editorData = localStorage.getItem('editorData')
+    editor.getInstance().setHTML(editorData || state)
+
     imageSetting(editor);
     editor
       .getInstance()
@@ -76,7 +81,8 @@ export default function TextEditor({ state }: Props) {
 
   return (
     <Editor
-      initialValue={text}
+      // onLoad={() => onLoaded(editorRef)}
+      initialValue={contents}
       previewStyle="vertical"
       hideModeSwitch={true}
       height="70vh"

@@ -1,6 +1,6 @@
 import style from "./page.module.scss";
 import Image from "next/image"
-import '@toast-ui/editor/dist/toastui-editor.css';
+import '@/style/tuiBasic.scss'
 import { notoSansKr } from "@/app/layout";
 import zlib from "zlib"
 import LikeAndBookmark from "@/components/LikeAndBookmark";
@@ -31,7 +31,7 @@ export const generateMetadata = async (props: IProps): Promise<Metadata> => {
     description: data.title,
   }
 }
-
+//TODO: description 모델에 추가
 export default async function Page(props: IProps) {
   const session = await getServerSession(options)
   const user = session?.user as SessionUser;

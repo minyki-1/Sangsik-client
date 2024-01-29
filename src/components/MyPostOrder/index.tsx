@@ -21,7 +21,7 @@ export default function MyPostOrder() {
           <p>북마크</p>
         </Link>
       </div>
-      <Link href={'/write'} className={style.createBtn} onClick={() => { localStorage.removeItem('editorData') }}>
+      <Link href={'/write'} className={style.createBtn}>
         <EditIcon />
         <p>새 상식 작성</p>
       </Link>

@@ -13,8 +13,8 @@ import { usePathname } from "next/navigation";
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
   const pathname = usePathname();
-  const excludePathname = ['/write']
-  if (excludePathname.includes(pathname)) return;
+  const excludePathname = ['/write', '/modify']
+  if (excludePathname.some(substring => pathname.includes(substring))) return;
   return (
     <header className={style.container}>
       <Link href="/">

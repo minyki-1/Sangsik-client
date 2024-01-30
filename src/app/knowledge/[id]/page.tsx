@@ -27,16 +27,32 @@ export const getData = async (id: string) => {
 export const generateMetadata = async (props: IProps): Promise<Metadata> => {
   const data = await getData(props.params.id)
   return {
-    title: data.title,
-    description: data.title,
+    title: data?.title,
+    description: data?.description,
   }
 }
-//TODO: description 모델에 추가
+
+function decompressContents(contents: string) {
+  try {
+    return zlib.gunzipSync(Buffer.from(contents, "base64")).toString();
+  } catch (error) {
+    return contents;
+  }
+}
+
+
 export default async function Page(props: IProps) {
   const session = await getServerSession(options)
   const user = session?.user as SessionUser;
-  const { title, content, likes, authorId, likeCount, bookmarks } = await getData(props.params.id);
-  const unzipContent = zlib.gunzipSync(Buffer.from(content, 'base64')).toString()
+  const result = await getData(props.params.id);
+  if (!result) return (
+    <div>
+      <p>존재하지 않는 글입니다.</p>
+    </div>
+  );
+  const { title, contents, likes, authorId, likeCount, bookmarks } = result;
+  const unzipContent = decompressContents(contents)
+
   return (
     <div className={style.container}>
       <div className={style.post}>
@@ -55,6 +71,8 @@ export default async function Page(props: IProps) {
             <p className={style.day}>12시간 전</p>
           </div>
           <LikeAndBookmark
+            title={title}
+            contents={unzipContent}
             postId={props.params.id}
             userId={user ? (user.id ?? undefined) : undefined}
             likes={likeCount}

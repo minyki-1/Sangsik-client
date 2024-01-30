@@ -6,6 +6,7 @@ import BookmarkFillIcon from "@/assets/icons/bookmark-fill.svg";
 import ShareIcon from "@/assets/icons/share.svg";
 import EditIcon from "@/assets/icons/edit.svg";
 import ReportIcon from "@/assets/icons/flag-alt.svg";
+import TrashIcon from "@/assets/icons/trash.svg";
 import style from "./style.module.scss"
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -14,6 +15,8 @@ import { toast } from "react-toastify";
 import MenuIcon from "@/assets/icons/menu-dots.svg";
 
 interface IProps {
+  title: string,
+  contents: string,
   likes: number,
   postId?: string,
   userId?: string,
@@ -28,7 +31,7 @@ interface IPostCache {
   likeCount: number;
 }
 
-export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isUserBookmark, isMyPost }: IProps) {
+export default function LikeAndBookmark({ title, contents, likes, postId, userId, isUserLike, isUserBookmark, isMyPost }: IProps) {
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
   const router = useRouter();
   const [isLike, setIsLike] = useState(isUserLike);
@@ -80,11 +83,49 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
     }
     if (!confirm('이 글을 정말로 신고하시겠습니까?')) return;
     if (!postId) return;
-    const url = `${serverURL}/api/post/report?postId=${encodeURIComponent(postId)}&userId=${encodeURIComponent(userId)}`;
+    const url = `${serverURL}/api/post/report?postId=${postId}&userId=${userId}`;
     const response = await fetch(url, { method: 'POST' });
     const data = await response.json();
     if (data.status === 'success')
       toast.success("신고 완료");
+  }
+
+  const handleClickDelete = async () => {
+    if (!userId) {
+      if (confirm('로그인 후에 삭제를 할 수 있습니다.\n로그인 페이지로 이동하시겠습니까?'))
+        return router.push("/my");
+      return;
+    }
+
+    if (!confirm('이 글을 정말로 삭제하시겠습니까?')) return;
+    if (!postId) return;
+    // TODO: 보안성 검사
+    const url = `${serverURL}/api/post/delete/${postId}`;
+    const response = await fetch(url, { method: 'DELETE' });
+    const data = await response.json();
+    if (data.status === 'success') {
+      toast.success('성공적으로 글을 삭제했습니다.')
+      return router.push('/my')
+    }
+    toast.error('글을 삭제하는데 실패했습니다.')
+  }
+
+  const handleClickShare = () => {
+    const postUrl = `${window.location.origin}/knowledge/${postId}`;
+    navigator.clipboard.writeText(postUrl)
+      .then(() => {
+        toast.success("링크 복사 완료!")
+      })
+      .catch(err => {
+        console.error('링크 복사 실패:', err);
+        toast.error("링크 복사 실패")
+      });
+  }
+
+  const handleClickModify = () => {
+    localStorage.setItem('titleData', title)
+    localStorage.setItem('editorData', contents)
+    router.push(`/modify/${postId}`)
   }
 
   useEffect(() => {
@@ -115,27 +156,10 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
         }
         <p>저장</p>
       </span>
-      <span onClick={() => {
-        const postUrl = `${window.location.origin}/knowledge/${postId}`;
-        navigator.clipboard.writeText(postUrl)
-          .then(() => {
-            toast.success("링크 복사 완료!")
-          })
-          .catch(err => {
-            console.error('링크 복사 실패:', err);
-            toast.error("링크 복사 실패")
-          });
-      }}>
+      <span onClick={handleClickShare}>
         <ShareIcon />
         <p>공유</p>
       </span>
-      {
-        isMyPost ?
-          <span>
-            <EditIcon />
-            <p>수정</p>
-          </span> : null
-      }
       <span
         tabIndex={0}
         onClick={() => setOpenMenu(value => !value)}
@@ -144,9 +168,24 @@ export default function LikeAndBookmark({ likes, postId, userId, isUserLike, isU
         <MenuIcon />
         {
           openMenu ?
-            <div className={style.menu} onClick={handleReport}>
-              <ReportIcon />
-              <p>신고</p>
+            <div className={style.menu}>
+              <div onClick={handleReport}>
+                <ReportIcon />
+                <p>신고</p>
+              </div>
+              {
+                isMyPost ?
+                  <>
+                    <div onClick={handleClickModify}>
+                      <EditIcon />
+                      <p>수정</p>
+                    </div>
+                    <div onClick={handleClickDelete}>
+                      <TrashIcon />
+                      <p>삭제</p>
+                    </div>
+                  </> : null
+              }
             </div> : null
         }
       </span>

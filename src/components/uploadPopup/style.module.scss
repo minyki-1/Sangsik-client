@@ -22,6 +22,7 @@
 
 .uploadWrap {
   animation: zoomAnimation 0.1s ease-out forwards;
+  transform-origin: center bottom;
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -54,9 +55,10 @@
   h1 {
     width: 100%;
     margin: 4px;
-    font-size: 18px;
+    margin-bottom: 8px;
+    font-size: 20px;
     font-weight: 400;
-    height: 20px;
+    height: 23px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -74,7 +76,7 @@
     aspect-ratio: 16/9;
     position: relative;
     background-color: var(--gray-1);
-    border: 4px;
+    border-radius: 4px;
   }
   img {
     width: 100%;
@@ -93,7 +95,7 @@
     width: 100%;
     aspect-ratio: 16/9;
     background-color: var(--gray-1);
-    border: 4px;
+    border-radius: 4px;
   }
   p {
     font-size: 16px;
@@ -102,14 +104,15 @@
 }
 
 .uploadBtnWrap {
-  margin-top: 40px;
+  margin: 40px 0px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   button {
     cursor: pointer;
-    padding: 16px 24px;
-    border-radius: 8px;
+    padding: 14px 20px;
+    border-radius: 100px;
     background-color: var(--symbol-1);
     border: 1px solid #1a1b23;
     &[data-done="false"] {
@@ -139,11 +142,25 @@
   }
 }
 
+@keyframes zoomAnimation {
+  from {
+    transform: scale(0.75);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 .aiNotice {
+  animation: zoomAnimation 0.1s ease-out forwards;
   position: absolute;
+  transform-origin: center top;
   border-radius: 8px;
+  margin-right: -120px;
+  margin-top: 5px;
   background-color: var(--bg-1);
-  border: 1px solid var(--color-1);
+  // box-shadow: 0px 2px 4px 0px rgba(13, 13, 13, 0.25);
+  border: 1px solid var(--gray-2);
   width: 200px;
   padding: 12px;
   display: flex;
@@ -158,4 +175,14 @@
   margin: 00px 32px;
   width: 24px;
   height: 24px;
+}
+
+.aiResult {
+  background-color: var(--gray-1);
+  border-radius: 4px;
+  font-size: 16px;
+  color: var(--color-1);
+  width: 300px;
+  padding: 12px;
+  margin-top: 24px;
 }

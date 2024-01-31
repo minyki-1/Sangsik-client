@@ -10,6 +10,7 @@
   max-width: calc(100vw - 72px);
   display: flex;
   flex-direction: column;
+  padding-bottom: 36px;
   @media (max-width: 800px) {
     max-width: calc(100vw - 42px);
   }

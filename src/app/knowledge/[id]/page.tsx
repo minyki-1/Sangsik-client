@@ -1,6 +1,5 @@
 import style from "./page.module.scss";
 import Image from "next/image"
-import '@/style/tuiBasic.scss'
 import { notoSansKr } from "@/app/layout";
 import zlib from "zlib"
 import LikeAndBookmark from "@/components/LikeAndBookmark";
@@ -8,6 +7,7 @@ import { getServerSession } from "next-auth/next";
 import { options } from "@/utils/authOptions";
 import { SessionUser } from "@/types/session";
 import { Metadata } from "next/types";
+import generateTimeString from "@/utils/generateTimeString";
 
 interface IProps {
   params: {
@@ -50,7 +50,7 @@ export default async function Page(props: IProps) {
       <p>존재하지 않는 글입니다.</p>
     </div>
   );
-  const { title, contents, likes, authorId, likeCount, bookmarks } = result;
+  const { title, contents, likes, authorId, likeCount, bookmarks, createdAt } = result;
   const unzipContent = decompressContents(contents)
 
   return (
@@ -68,7 +68,7 @@ export default async function Page(props: IProps) {
             />
             <p className={style.userName}>{authorId.name}</p>
             <p className={style.point}>·</p>
-            <p className={style.day}>12시간 전</p>
+            <p className={style.day}>{generateTimeString(createdAt)}</p>
           </div>
           <LikeAndBookmark
             title={title}
@@ -82,7 +82,7 @@ export default async function Page(props: IProps) {
           />
         </div>
         <main className={'toastui-editor-contents'}>
-          <div className={notoSansKr.className} dangerouslySetInnerHTML={{ __html: unzipContent }} />
+          <div dangerouslySetInnerHTML={{ __html: unzipContent }} />
         </main>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { Editor } from '@toast-ui/react-editor';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { makeDetail } from '@/utils/createPostInfo';
 
 interface Props {
   state: string;

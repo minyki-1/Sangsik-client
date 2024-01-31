@@ -63,7 +63,7 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
       } else {
         toast.update(toastId, { render: "AI 검사에 통과하지 못했습니다.", type: "error", isLoading: false, autoClose: 3000 });
         const resultText = response.data.data.aiResult;
-        
+
         setAiResult(resultText)
       }
     })
@@ -76,8 +76,15 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
   const makeDescription = () => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(contents, 'text/html');
-    const firstElement = doc.body.firstChild;
-    return firstElement ? firstElement.textContent : '';
+    const paragraphs = doc.querySelectorAll('p');
+    for (const [_, paragraph] of paragraphs.entries()) {
+      console.log(paragraph)
+      const textContent = paragraph.textContent || ''
+      if (textContent.trim().length > 0) {
+        return textContent.trim();
+      }
+    }
+    return '';
   }
 
   const getFirstImage = () => {

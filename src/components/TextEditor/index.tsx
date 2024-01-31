@@ -37,22 +37,16 @@ export default function TextEditor({ state, setState }: Props) {
   const onChange = () => {
     const editor = editorRef.current?.getInstance();
     if (!editor) return;
-    const data = editor.getHTML();
-    if (!data || data === '<p><br></p>') return;
-
     let htmlText = editor.getHTML();
+    if (!htmlText || htmlText === '<p><br></p>') return;
+
     let cleanedText = htmlText;
     cleanedText = cleanedText.replace(/<[\/]?span[^>]*>/g, "");
-    // cleanedText = cleanedText.replace(/<br[\s\/]*>/g, "");
-    // cleanedText = cleanedText.replace(/<[\/]?u>/g, "");
-    if (cleanedText !== htmlText) {
-      console.log(cleanedText)
-      editor.setHTML(cleanedText)
+    if (cleanedText !== htmlText) editor.setHTML(cleanedText);
 
-      setContents(cleanedText);
-      setState(cleanedText);
-      localStorage.setItem('editorData', cleanedText);
-    }
+    setContents(cleanedText);
+    setState(cleanedText);
+    localStorage.setItem('editorData', cleanedText);
   };
 
   const imageSetting = () => {

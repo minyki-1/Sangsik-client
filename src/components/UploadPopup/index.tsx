@@ -47,8 +47,6 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
 
     getRoute(postData).then(response => {
       if (response.data.status === "success") {
-        localStorage.removeItem('editorData');
-        localStorage.removeItem('titleData');
         toast.update(toastId, { render: "AI 검사를 통과했습니다!", type: "success", isLoading: false, autoClose: 3000 });
         toast.success('글이 성공적으로 게시되었습니다!');
         const id = response.data.data?.id

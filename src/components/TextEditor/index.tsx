@@ -1,6 +1,7 @@
 import { Editor } from '@toast-ui/react-editor';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import { makeDetail } from '@/utils/createPostInfo';
 
 interface Props {
   state: string;
@@ -47,6 +48,9 @@ export default function TextEditor({ state, setState }: Props) {
     setContents(cleanedText);
     setState(cleanedText);
     localStorage.setItem('editorData', cleanedText);
+
+    const detail = makeDetail(contents);
+    console.log(detail)
   };
 
   const imageSetting = () => {

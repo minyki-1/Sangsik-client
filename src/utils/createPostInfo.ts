@@ -1,7 +1,7 @@
 export const makeDetail = (contents: string) => {
   const withLineBreaks = contents
     .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<\/p>|<\/div>/gi, "\n")
+    .replace(/<\/p>|<\/div>|<\/h1>|<\/h2>|<\/h3>/gi, "\n")
     .replace(/<[^>]+>/g, "");
   const parser = new DOMParser();
   const doc = parser.parseFromString(withLineBreaks, "text/html");

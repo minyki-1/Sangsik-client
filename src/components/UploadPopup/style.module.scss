@@ -96,6 +96,17 @@
     aspect-ratio: 16/9;
     background-color: var(--gray-1);
     border-radius: 4px;
+
+    textarea {
+      padding: 12px;
+      background-color: var(--gray-1);
+      border-radius: 4px;
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
+      border: none;
+      outline: none;
+      resize: none;
+    }
   }
   p {
     font-size: 16px;

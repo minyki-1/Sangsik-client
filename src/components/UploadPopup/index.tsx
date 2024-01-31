@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { getPreviewImage, makeDescription, makeDetail } from "@/utils/createPostInfo";
 
 interface IProps {
   title: string,
@@ -21,16 +22,9 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
   const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || ''
   const [aiResult, setAiResult] = useState<string | null>(null);
   const router = useRouter()
-
-  const makeDetail = () => {
-    const withLineBreaks = contents.replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<\/p>|<\/div>/gi, '\n')
-      .replace(/<[^>]+>/g, '');
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(withLineBreaks, 'text/html');
-    const result = doc.body.textContent?.split('\n').filter(line => line.trim() !== '').join('\n')
-    return result;
-  }
+  const previewImage = getPreviewImage(contents);
+  const detail = makeDetail(contents);
+  const [description, setDescription] = useState(makeDescription(contents));
 
   const getRoute = (postData: Object) => {
     if (modifyId) return axios.put(`${serverURL}/api/post/update/${modifyId}`, postData)
@@ -43,10 +37,10 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
     const postData = {
       title,
       contents,
-      previewImage: getFirstImage(),
+      previewImage,
       authorId: userId,
-      description: makeDescription(),
-      detail: makeDetail()
+      description,
+      detail,
     };
 
     const toastId = toast.loading('AI 검사를 실행중입니다.')
@@ -73,28 +67,7 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
       });
   }
 
-  const makeDescription = () => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(contents, 'text/html');
-    const paragraphs = doc.querySelectorAll('p');
-    for (const [_, paragraph] of paragraphs.entries()) {
-      console.log(paragraph)
-      const textContent = paragraph.textContent || ''
-      if (textContent.trim().length > 0) {
-        return textContent.trim();
-      }
-    }
-    return '';
-  }
 
-  const getFirstImage = () => {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = contents;
-
-    const firstImage = tempDiv.querySelector('img');
-
-    return firstImage?.src
-  }
 
   return (
     <div className={style.uploadPopup}>
@@ -107,9 +80,9 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
             <h1>미리보기 이미지</h1>
             <span>
               {
-                getFirstImage()
+                previewImage
                   ? <Image
-                    src={getFirstImage() || ''}
+                    src={previewImage || ''}
                     alt="Preview Image"
                     fill={true}
                     objectFit="cover"
@@ -124,7 +97,10 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
           <div className={style.previewInfo2}>
             <h1>{title}</h1>
             <span>
-              <p>{makeDescription()}</p>
+              <textarea
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+              />
             </span>
           </div>
         </div>
@@ -151,11 +127,6 @@ export default function UploadPopup({ title, contents, userId, exit, modifyId }:
                 {aiResult}
               </div> : null
           }
-          {/* <ArrowIcon className={style.leftIcon} />
-          <button
-            disabled={!doneTest}
-            data-done={String(doneTest)}
-          >게시하기</button> */}
         </div>
       </div>
     </div>

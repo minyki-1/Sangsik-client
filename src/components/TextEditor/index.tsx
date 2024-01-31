@@ -48,9 +48,6 @@ export default function TextEditor({ state, setState }: Props) {
     setContents(cleanedText);
     setState(cleanedText);
     localStorage.setItem('editorData', cleanedText);
-
-    const detail = makeDetail(contents);
-    console.log(detail)
   };
 
   const imageSetting = () => {

@@ -39,11 +39,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteName,
     description,
-    url: 'sangsiksun.com',
+    url: 'https://www.sangsiksun.com',
     siteName,
     images: [
       {
-        url: '/images/og.png',
+        url: 'https://www.sangsiksun.com/images/og.png',
         width: 800,
         height: 600,
       },
